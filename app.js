@@ -2,12 +2,14 @@
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
 const todoList = document.querySelector('.todo-list');
+const filterOption =document.querySelector('.filter-todo');
 
 
 
 // Event Listeners
 todoButton.addEventListener('click', addTodo);
 todoList.addEventListener('click', deleteCheck);
+filterOption.addEventListener('click', filterTodo);
 
 
 
@@ -57,7 +59,7 @@ function deleteCheck(e) {
 
     // Animation
         todo.classList.add("fall");
-    //    todo.remove();
+    //  todo.remove();
         todo.addEventListener('teansitioned', function(){
             todo.remove();
         });
@@ -69,4 +71,36 @@ function deleteCheck(e) {
         const todo = item.parentElement;
         todo.classList.toggle("completed");
     }
+}
+
+function filterTodo(e) {
+    const todos = todoList.childNodes;
+    todos.forEach(function(todo){
+        switch(e.target.value) {
+            case "all":
+                // @ts-ignore
+                todo.style.display = "flex";
+                break;
+            case "completed":
+                // @ts-ignore
+                if(todo.classList.contains("completed")) {
+                    // @ts-ignore
+                    todo.style.display = "flex";
+                } else {
+                    // @ts-ignore
+                    todo.style.display = "none";
+                }
+                break;
+            case "incompleted":
+                // @ts-ignore
+                if(!todo.classList.contains("completed")) {
+                    // @ts-ignore
+                    todo.style.display = "flex";
+                } else {
+                    // @ts-ignore
+                    todo.style.display = "none";
+                }
+                break;
+        }
+    });
 }
